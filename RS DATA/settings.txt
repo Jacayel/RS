@@ -1,0 +1,7 @@
+__________________
+
+1. Personalization
+2. Graphics
+3. User Profile
+W. Exit
+__________________

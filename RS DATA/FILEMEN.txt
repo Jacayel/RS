@@ -1,0 +1,10 @@
+
+===================
+1. Search for files
+2. Delete a file
+3. Run a bat file
+===================
+
+-------
+W. Back
+-------

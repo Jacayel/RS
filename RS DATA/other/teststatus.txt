@@ -1,0 +1,6 @@
+Notes - PASS
+Caclulator - PASS
+Files - PASS
+Settings - PASS
+Close - PASS
+Other - PASS
