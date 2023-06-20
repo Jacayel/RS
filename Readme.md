@@ -24,7 +24,7 @@
 ==================================================================================
 
 RS is a batch program that has a file system, simple calculator, countdown app, 
-settings and a number guessing game. It is similar to a old operating system
+settings, and a number guessing game. It is similar to an old operating system
 
 ==================================================================================
                                       Help
@@ -36,9 +36,9 @@ In the notes app, press Ctrl+Z to save and exit
 
 To create a new user, run the setup program
 
-If the setup does not open (If windows smart screen or microsoft store stops it),
+If the setup does not open (If Windows smart screen or Microsoft store stops it),
  right click on "RS SETUP WIZARD" click on the properties and press unblock.
 
 ==================================================================================
-                Created by Jacayel, LilBr0b3ar and ExpiredWarCheese               
+                Created by Jacayel, LilBr0b3ar, and ExpiredWarCheese               
 ==================================================================================
