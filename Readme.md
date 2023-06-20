@@ -1,13 +1,44 @@
-This is RS
+==================================================================================
+                      _____                    _____          
+                     /\    \                  /\    \         
+                    /::\    \                /::\    \        
+                   /::::\    \              /::::\    \       
+                  /::::::\    \            /::::::\    \      
+                 /:::/\:::\    \          /:::/\:::\    \     
+                /:::/__\:::\    \        /:::/__\:::\    \    
+               /::::\   \:::\    \       \:::\   \:::\    \   
+              /::::::\   \:::\    \    ___\:::\   \:::\    \  
+             /:::/\:::\   \:::\____\  /\   \:::\   \:::\    \ 
+            /:::/  \:::\   \:::|    |/::\   \:::\   \:::\____\
+            \::/   |::::\  /:::|____|\:::\   \:::\   \::/    /
+             \/____|:::::\/:::/    /  \:::\   \:::\   \/____/ 
+                   |:::::::::/    /    \:::\   \:::\    \     
+                   |::|\::::/    /      \:::\   \:::\____\    
+                   |::| \::/____/        \:::\  /:::/    /    
+                   |::|  ~|               \:::\/:::/    /     
+                   |::|   |                \::::::/    /      
+                   \::|   |                 \::::/    /       
+                    \:|   |                  \::/    /        
+                     \|___|                   \/____/         
 
-RS is a batch os that runs inside of windows.
+==================================================================================
 
-Note: This is a text based os
+RS is a batch program that has a file system, simple calculator, countdown app, 
+settings and a number guessing game. It is similar to a old operating system
 
-Help:
+==================================================================================
+                                      Help
+==================================================================================
 
-To navigate the apps and menus, Press the number of the option. Then press enter to confirm
+To navigate the apps and menus, Press the number of the option to open the app
+
+In the notes app, press Ctrl+Z to save and exit
 
 To create a new user, run the setup program
 
-If the setup does not open (If windows smart screen or microsoft store stops it), right click on "RS SETUP WIZARD" click on the properties and press unblock.
+If the setup does not open (If windows smart screen or microsoft store stops it),
+ right click on "RS SETUP WIZARD" click on the properties and press unblock.
+
+==================================================================================
+                Created by Jacayel, LilBr0b3ar and ExpiredWarCheese               
+==================================================================================

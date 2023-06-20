@@ -1,82 +1,50 @@
 @echo off
 call colormem.bat
-echo %date% > logtime.txt
+echo %date% %time% > logtime.txt
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :menustart
-cls
-:VBSDynamicBuild
-SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
-IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
-ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
-ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
-ECHO WshShell.SendKeys "{0}"                            >>"%TempVBSFile%
-ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
-
-CSCRIPT //nologo "%TempVBSFile%"
-
-:VBSDynamicBuild
-SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
-IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
-ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
-ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
-ECHO WshShell.SendKeys "{ENTER}"                            >>"%TempVBSFile%
-ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
-
-CSCRIPT //nologo "%TempVBSFile%"
-
-set /p number=
-if %number% == 0 goto main
+mode con COLS=82 LINES=29
 goto main
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :main
+mode con COLS=82 LINES=29
+title %date% - MENU
 cls
-echo ==============================================================================
-echo %date%   MENU
-echo ==============================================================================
 echo.
 call wall.bat
 type mainmenu.txt
-set /p number=
-if %number% == 1 goto note
-if %number% == 3 goto files
-if %number% == 2 goto cal
-if %number% == 4 goto settings
-if %number% == 5 goto apps
-if %number% == 6 goto timerapp
-if %number% == 7 goto guessgame
-if %number% == i goto info
-if %number% == w goto exit
-if %number% == W goto exit
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
+choice /c 1234567iw /n
+if errorlevel 9 goto exit
+if errorlevel 8 goto info
+if errorlevel 7 goto guessgame
+if errorlevel 6 goto timerapp
+if errorlevel 5 goto apps
+if errorlevel 4 goto settings
+if errorlevel 3 goto files
+if errorlevel 2 goto cal
+if errorlevel 1 goto note
 goto main
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :apps
+title %date% - MENU
 cls
-echo ==============================================================================
-echo %date%   MENU
-echo ==============================================================================
 echo.
 call wall.bat
 type apps.txt
-set /p number=
-if %number% == 1 goto note
-if %number% == 3 goto files
-if %number% == 2 goto cal
-if %number% == 4 goto settings
-if %number% == 5 goto apps
-if %number% == 6 goto timerapp
-if %number% == 7 goto guessgame
-if %number% == i goto info
-if %number% == w goto main
-if %number% == W goto main
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
+choice /c 1234567iw /n
+if errorlevel 9 goto main
+if errorlevel 8 goto info
+if errorlevel 7 goto guessgame
+if errorlevel 6 goto timerapp
+if errorlevel 5 goto apps
+if errorlevel 4 goto settings
+if errorlevel 3 goto files
+if errorlevel 2 goto cal
+if errorlevel 1 goto note
 goto main
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :guessgame
+title %date% - Guessing game
 cls
 
 
@@ -110,35 +78,29 @@ cls
 type sysinfo.txt
 echo ______________________________________________________________
 type verstat.txt
-type rel.txt
-echo.
+type build.txt
 echo Time of logon:
 type logtime.txt
 pause
 goto main
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :settings
+mode con COLS=82 LINES=29
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS
-echo ==============================================================================
 echo.
 type settings.txt
-set /p number=
-if %number% == 1 goto personal
-if %number% == 2 goto graphic
-if %number% == 3 goto acc
-if %number% == w goto menustart
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
-goto menustart
+choice /c 123w /n
+if errorlevel 4 goto main
+if errorlevel 3 goto acc
+if errorlevel 2 goto graphic
+if errorlevel 1 goto personal
+goto main
 ::::::::::::::::::::::::
 :graphic
+mode con COLS=82 LINES=29
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - GRAPHICS
-echo ==============================================================================
 echo.
 echo.
 echo =====================
@@ -149,15 +111,23 @@ echo.
 echo -------
 echo W. Back
 echo -------
-set /p number=
-if %number% == 1 goto enloch echo call loadformat.bat > loch.bat 
-if %number% == 2 goto disloch echo call load.bat > loch.bat
-if %number% == w goto settings
+choice /c 12w /n
+if errorlevel 3 goto settings
+if errorlevel 2 goto disloch 
+if errorlevel 1 goto enloch
 goto settings
 :enloch
 cls
 echo call loadformat.bat > loch.bat
-call loadformat.bat
+:VBSDynamicBuild
+SET TempVBSFile=%temp%\~tmpSendKeysTemp.vbs
+IF EXIST "%TempVBSFile%" DEL /F /Q "%TempVBSFile%"
+ECHO Set WshShell = WScript.CreateObject("WScript.Shell") >>"%TempVBSFile%"
+ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
+ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
+ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
+
+CSCRIPT //nologo "%TempVBSFile%"
 goto settings
 :disloch
 echo call load.bat > loch.bat
@@ -170,30 +140,24 @@ ECHO WshShell.SendKeys "{F11}"                            >>"%TempVBSFile%
 ECHO Wscript.Sleep 1                                    >>"%TempVBSFile%"
 
 CSCRIPT //nologo "%TempVBSFile%"
-call load.bat
 goto settings
 ::::::::::::::::::::::::
 :PERSONAL
+mode con COLS=82 LINES=29
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - PERSONALIZATION
-echo ==============================================================================
 type permen.txt
 echo.
-set /p number=
-if %number% == 1 goto pickcol
-if %number% == 2 goto wall
-if %number% == w goto settings
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
+choice /c 12w /n
+if errorlevel 3 goto settings
+if errorlevel 2 goto wall
+if errorlevel 1 goto pickcol
 goto menustart
 :::::::::::::::::::::::::
 :acc
+mode con COLS=82 LINES=29
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - USER PROFILE
-echo ==============================================================================
 echo.
 echo.
 echo ===================
@@ -205,16 +169,14 @@ echo ---------
 echo  W. Back
 echo ---------
 echo.
-set /p uset=
-if %uset% == 1 goto paschange
-if %uset% == 2 goto namchange
-if %uset% == w goto main
+choice /c 12w /n
+if errorlevel 3 goto settings
+if errorlevel 2 goto namchange
+if errorlevel 1 goto paschange
 goto settings
 :namchange
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - USER PROFILE - CHANGE USERNAME
-echo ==============================================================================
 echo.
 
 for %%I in (.) do set olus=%%~nxI
@@ -226,10 +188,8 @@ echo call login.bat >> renuser.bat
 start renuser.bat
 exit
 :paschange
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - USER PROFILE - CHANGE PASSWORD
-echo ==============================================================================
 echo.
 echo Type a new password
 echo.
@@ -246,10 +206,8 @@ cls
 goto acc
 :::::::::::::::::::::::::
 :pickcol
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - COLOR
-echo ==============================================================================
 echo.
 echo.
 echo =================
@@ -261,17 +219,14 @@ echo ---------
 echo  W. Back
 echo ---------
 echo.
-set /p color=
-if %color% == 1 goto cucol
-if %color% == 2 goto colors
-if %color% == w goto personal
-if %color% == W goto personal
+choice /c 12w /n
+if errorlevel 3 goto personal
+if errorlevel 2 goto colorpre
+if errorlevel 1 goto cucol
 goto settings
-:colors
+:colorpre
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - PERSONALIZATION - COLOR
-echo ==============================================================================
 echo.
 echo.
 echo ======================
@@ -285,16 +240,12 @@ echo ---------
 echo  W. Back
 echo ---------
 echo.
-set /p color=
-if %color% == 1 color 0f
-if %color% == 1 echo color 0f > COLORMEM.bat
-if %color% == 2 color 8f
-if %color% == 2 echo color 8f > COLORMEM.bat
-if %color% == 3 color 0b
-if %color% == 3 echo color 0b > COLORMEM.bat
-if %color% == 4 color 3f
-if %color% == 4 echo color 3f > COLORMEM.bat
-if %color% == w goto settings
+choice /c 1234w /n
+if errorlevel 1 echo color 0f > COLORMEM.bat
+if errorlevel 2 echo color 8f > COLORMEM.bat
+if errorlevel 3 echo color 0b > COLORMEM.bat
+if errorlevel 4 echo color 3f > COLORMEM.bat
+if errorlevel 5 goto settings
 call colormem.bat
 cls
 goto settings
@@ -302,52 +253,17 @@ type line1.txt
 echo.
 cls
 :cucol
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - PERSONALIZATION - COLOR
-echo ==============================================================================
 type COLKEY.txt
 set /p color=
-if %color% == w goto settings
 echo color %color% > COLORMEM.bat
 call colormem.bat
 goto settings
 :::::::::::::::::::::::::
-:loadset
-cls
-type line2.txt
-echo %date%   SETTINGS - STARTUP
-type line2.txt
-echo.
-echo _______
-echo Startup
-echo _______
-echo.
-echo =============================
-echo 1. Turn on Startup animation
-echo 2. Turn off Startup animation
-echo =============================
-echo.
-echo -------
-echo W. Back
-echo -------
-set /p startup=
-if %startup% == 1 goto tonsa-startup
-if %startup% == 2 goto toffsa-startup
-if %startup% == w goto settings
-goto loadset
-:tonsa-startup
-echo call animsequence.bat > animstartchoice.bat
-goto loadset
-:toffsa-startup
-echo. > animstartchoice.bat
-goto loadset
-:::::::::::::::::::::::::
 :wall
+title %date% - Settings
 cls
-echo ==============================================================================
-echo %date%   SETTINGS - PERSONALIZATION - WALLPAPER
-echo ==============================================================================
 echo.
 echo ===================
 echo 1. Desert Snake
@@ -362,427 +278,197 @@ echo --------
 echo W. Back
 echo --------
 echo.
-set /p wall=
-if %wall% == 1 goto deswal
-if %wall% == 2 goto roawal
-if %wall% == 3 goto ligwal
-if %wall% == 4 goto lapwal
-if %wall% == 5 goto satwal
-if %wall% == 6 goto rswall
-if %wall% == w goto settings
+choice /c 123456w /n
+if errorlevel 7 goto settings
+if errorlevel 6 goto rswall
+if errorlevel 5 goto satwal
+if errorlevel 4 goto lapwal
+if errorlevel 3 goto ligwal
+if errorlevel 2 goto roawal
+if errorlevel 1 goto deswal
 goto settings
 :deswal
 echo type Desert-Snake.txt > Wall.bat
-goto wall
+goto personal
 :repwal
 echo type Diamond-Repeater.txt > Wall.bat
-goto wall
+goto personal
 :roawal
 echo type Mountain-Road.txt > Wall.bat
-goto wall
+goto personal
 :ligwal
 echo type Northern-lights.txt > Wall.bat
-goto wall
+goto personal
 :lapwal
 echo type lptp.txt > Wall.bat
-goto wall
+goto personal
 :satwal
 echo type saturn.txt > Wall.bat
-goto wall
+goto personal
 :rswall
 echo type rswall.txt > Wall.bat
-goto wall
+goto personal
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :timerapp
+title %date% - Countdown
 cls
-echo ==============================================================================
-echo %date%   COUNTDOWN
-echo ============================================================================== 
 echo.
 echo Type the amount of seconds to countdown from...
 echo Type "W" to exit
 set /p t=
 timeout %t%
-if %t% == w goto main
+if %t% == w goto apps
 goto timerapp
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :note
+title %date% - Notes
 cls
-echo ==============================================================================
-echo %date%   NOTES
-echo ==============================================================================
-echo.
-echo.
-type notesmenu.txt
-set /p number=
-if %number% == 1 goto add
-if %number% == 2 goto crbat
-if %number% == 1o goto addov
-if %number% == 2o goto addovbat
-if %number% == w goto menustart
-if %number% == W goto menustart
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
-goto note
-:appsfix
-goto apps
-:addovbat
-cls
-echo ============================================================================== 
-echo %date%   NOTES - Create a bat file - Overwrite mode
-echo ==============================================================================
 echo.
 cd Files
-echo DO NOT USE SPECIAL CHARACTERS (INCLUDING SPACE KEY) OR THE FILE WILL NOT SAVE
 echo.
 set /p n=Name of file:
-cls
-echo Loading...
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo. > "%n%.bat"
-echo Done!
+if %n% == "^Z" goto main
 cls
 echo __________________________________________
-echo You can write up to 10 lines of text
-echo Press enter to go to the next line of text
+echo Press Ctrl+Z, then enter to save the file
 echo __________________________________________
-set /p ne1ob=1:
-echo. %ne1ob% >"%n%.bat"
-set /p ne2ob=2:
-echo. %ne2ob% >>"%n%.bat"
-set /p ne3ob=3:
-echo. %ne3ob% >>"%n%.bat"
-set /p ne4ob=4:
-echo. %ne4ob% >>"%n%.bat"
-set /p ne5ob=5:
-echo. %ne5ob% >>"%n%.bat"
-set /p ne6ob=6:
-echo. %ne6ob% >>"%n%.bat"
-set /p ne7ob=7:
-echo. %ne7ob% >>"%n%.bat"
-set /p ne8ob=8:
-echo. %ne8ob% >>"%n%.bat"
-set /p ne9ob=9:
-echo. %ne9ob% >>"%n%.bat"
-set /p ne10ob=10:
-echo. %ne10ob% >>"%n%.bat"
 echo.
-echo.
+copy con %n%
 cd..
 cls
-goto note
-:addov
+goto main
 cls
-echo ============================================================================== 
-echo %date%   NOTES - Create a txt file - Overwrite mode
-echo ==============================================================================
-echo.
-cd Files
-echo DO NOT USE SPECIAL CHARACTERS (INCLUDING SPACE KEY) OR THE FILE WILL NOT SAVE
-echo.
-set /p n=Name of file:
-cls
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-echo. > "%n%.txt"
-cls
-echo __________________________________________
-echo You can write up to 10 lines of text
-echo Press enter to go to the next line of text
-echo __________________________________________
-set /p ne1o=1:
-echo. %ne1o% >"%n%.txt"
-set /p ne2o=2:
-echo. %ne2o% >>"%n%.txt"
-set /p ne3o=3:
-echo. %ne3o% >>"%n%.txt"
-set /p ne4o=4:
-echo. %ne4o% >>"%n%.txt"
-set /p ne5o=5:
-echo. %ne5o% >>"%n%.txt"
-set /p ne6o=6:
-echo. %ne6o% >>"%n%.txt"
-set /p ne7o=7:
-echo. %ne7o% >>"%n%.txt"
-set /p ne8o=8:
-echo. %ne8o% >>"%n%.txt"
-set /p ne9o=9:
-echo. %ne9o% >>"%n%.txt"
-set /p ne10o=10:
-echo. %ne10o% >>"%n%.txt"
-echo.
-echo.
-cd..
-cls
-goto note
-:add
-cls
-echo ============================================================================== 
-echo %date%   NOTES - Create a txt file
-echo ==============================================================================
-echo.
-cd Files
-echo DO NOT USE SPECIAL CHARACTERS (INCLUDING SPACE KEY) OR THE FILE WILL NOT SAVE
-echo.
-set /p n=Name of file:
-cls
-echo __________________________________________
-echo You can write up to 10 lines of text
-echo Press enter to go to the next line of text
-echo __________________________________________
-echo.
-set /p ne1t=1:
-echo. %ne1t% >>"%n%.txt"
-set /p ne2t=2:
-echo. %ne2t% >>"%n%.txt"
-set /p ne3t=3:
-echo. %ne3t% >>"%n%.txt"
-set /p ne4t=4:
-echo. %ne4t% >>"%n%.txt"
-set /p ne5t=5:
-echo. %ne5t% >>"%n%.txt"
-set /p ne6t=6:
-echo. %ne6t% >>"%n%.txt"
-set /p ne7t=7:
-echo. %ne7t% >>"%n%.txt"
-set /p ne8t=8:
-echo. %ne8t% >>"%n%.txt"
-set /p ne9t=9:
-echo. %ne9t% >>"%n%.txt"
-set /p ne10t=10:
-echo. %ne10t% >>"%n%.txt"
-echo.
-echo.
-cd..
-cls
-goto note
-:crbat
-cls
-echo ============================================================================== 
-echo %date%   NOTES - Create a bat file
-echo ==============================================================================
-echo.
-cd Files
-echo DO NOT USE SPECIAL CHARACTERS (INCLUDING SPACE KEY) OR THE FILE WILL NOT SAVE
-echo.
-set /p n=Name of file:
-cls
-echo __________________________________________
-echo You can write up to 10 lines of text
-echo Press enter to go to the next line of text
-echo __________________________________________
-set /p ne1=1:
-echo. %ne1% >>"%n%.bat"
-set /p ne2=2:
-echo. %ne2% >>"%n%.bat"
-set /p ne3=3:
-echo. %ne3% >>"%n%.bat"
-set /p ne4=4:
-echo. %ne4% >>"%n%.bat"
-set /p ne5=5:
-echo. %ne5% >>"%n%.bat"
-set /p ne6=6:
-echo. %ne6% >>"%n%.bat"
-set /p ne7=7:
-echo. %ne7% >>"%n%.bat"
-set /p ne8=8:
-echo. %ne8% >>"%n%.bat"
-set /p ne9=9:
-echo. %ne9% >>"%n%.bat"
-set /p ne10=10:
-echo. %ne10% >>"%n%.bat"
-echo.
-echo.
-cd..
-cls
-goto note
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:files
-
-CLS
 :filechose
+:files
+title %date% - Files
+set /a sfle=0
 cls
-echo ==============================================================================
-echo %date%   FILES
-echo ==============================================================================
-echo.
-echo.
-type FILEMEN.txt
-SET /p filechose=
-if %filechose% == w goto menustart
-if %filechose% == 1 goto fileser
-if %filechose% == 2 goto filedel
-if %filechose% == 3 goto filerun
-if %number% == 1967 dir
-if %number% == 1967 @echo on
-if %number% == off @echo off
-goto filechose
-:filedel
-cls
-echo ==============================================================================
-echo %date%   FILES - Delete a file
-echo ==============================================================================
 cd Files
 echo.
-echo.
+echo ___________________________________________________________
 echo Type in a file name
-echo Make sure to include the full file name (example: file.txt)
-echo.
+echo Make sure to include the file extension (example: file.txt)
+echo ___________________________________________________________
+
 dir /b
 ECHO.
-SET /p delf=
-del "%delf%"
+SET /p sfle=
+if %sfle% == w goto fledirfx
+IF EXIST %sfle% (
+    goto action
+) ELSE (
+    goto fnf
+)
+:fnf
+echo File not found.
+ping localhost -n 2 >nul
+cd..
+goto files
+:action
+cls
+title %date% - Files
+cls
+ECHO.
+ECHO.
+ECHO.
+ECHO.
+ECHo.
+echo %sfle%
+ECHO.
+echo =========
+echo 1. Open 
+echo 2. Run
+echo 3. Rename
+echo 4. Delete
+echo =========
+echo.
+echo -------
+echo W. Back
+echo -------
+choice /c 1234w /n
+if errorlevel 5 goto apfix
+if errorlevel 4 goto delf
+if errorlevel 3 goto renf
+if errorlevel 2 goto runf
+if errorlevel 1 goto openf
+goto files
+:apfix
+cd..
+goto filechose
+cls
+:delf
+cls
+del "%sfle%"
 pause
-:apfix
 cd..
 goto filechose
 cls
-:fileser
+:runf
 cls
-echo ==============================================================================
-echo %date%   FILES - Search for a file
-echo ==============================================================================
 cd Files
-echo.
-echo.
-echo Type in a file name
-echo Make sure to include the full file name (example: file.txt)
-echo.
-dir /b
-ECHO.
-SET /p webother=
 cls
-echo ==============================================================================
+call "%sfle%"
+cd..
+goto filechose
+cls
+:renf
+cls
+title %date% - Files
+cls
 echo.
-type "%webother%"
+echo ___________________________________________________________
+echo Make sure to include the file extension (example: file.txt)
+echo ___________________________________________________________
 echo.
-echo ==============================================================================
+set /p renf=Rename %sfle% to:
+ren "%sfle%" "%renf%"
+cd..
+cls
+goto filechose
+cls
+:openf
+cls
+title %date% - Files
+cls
+echo.
+echo.
+type "%sfle%"
+ECHO.
 pause
-:apfix
 cd..
-goto filechose
 cls
-:filerun
+goto files
 cls
-echo ==============================================================================
-echo %date%   FILES - Run a file
-echo ==============================================================================
-cd Files
-echo.
-echo.
-echo Type in a file name
-echo Make sure to include the full file name (example: file.bat)
-echo.
-dir /b
-ECHO.
-SET /p runf=
+:fledirfx
 cls
-call "%runf%"
-:apfix
 cd..
-goto filechose
-cls
+goto main
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :cal
 cls
-echo ==============================================================================
-echo %date%   Calculator (No decimals)
-echo ==============================================================================
+title %date% - Calculator (no decimals)
+cls
 
-set /p num1=Enter first number: 
-set /p operator=Enter operator (+, -, *, /): 
-set /p num2=Enter second number: 
-
-:: Perform the calculation
-if %operator%==+ set /a result=%num1%+%num2%
-if %operator%==- set /a result=%num1%-%num2%
-if %operator%==* set /a result=%num1%*%num2%
-if %operator%==/ set /a result=%num1%/%num2%
-
-
-echo Result: %result%
+echo.
+set /a num1=0
+set /a num2=0
+set /p num1=Enter the first number:
+set /p num2=Enter the second number:
+set /a sum=%num1%+%num2%
+set /a diff=%num1%-%num2%
+set /a prod=%num1%*%num2%
+set /a quotient=%num1%/%num2%
+echo Sum: %sum%
+echo Difference: %diff%
+echo Product: %prod%
+echo Quotient: %quotient%
 pause
-GOTO menustart
-
+goto main
+pause
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 pause
+Title RS V1.0
 :exit
 cls
 echo 1. Restart RS
@@ -790,15 +476,12 @@ echo 2. Close RS
 echo 3. Restart
 echo 4. Shutdown
 echo W. Go back
-set /p number=
-if %number% == 1 goto restartrs
-if %number% == 2 goto close
-if %number% == 3 goto restartpc
-if %number% == 4 goto shutdown
-if %number% == w goto menustart
-if %number% == debdir dir
-if %number% == debdir @echo on
-if %number% == deboff @echo off
+choice /c 1234w /n
+if errorlevel 5 goto main
+if errorlevel 4 goto shutdown
+if errorlevel 3 goto restartpc
+if errorlevel 2 goto close
+if errorlevel 1 goto restartrs
 goto exit
 :sleep
 rundll32.exe powrprof.dll, SetSuspendState Sleep

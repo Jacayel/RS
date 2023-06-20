@@ -1,7 +1,7 @@
 @echo off
 echo.>login.bat:Zone.Identifier
 echo.>"Rs setup wizard.bat":Zone.Identifier
-title RS SETUP WIZARD V0.9
+title RS SETUP WIZARD V1.0
 mode con COLS=27 LINES=15
 cls
 echo RS SETUP WIZARD
@@ -34,7 +34,7 @@ title RS 0.9
 echo Setup has completed, would you like to start RS?
 echo (Y = Yes)
 echo (N = No)
-set /p e=
-if %e% == y call loch.bat
-if %e% == n exit
+choice /c yn /n
+if errorlevel 2 exit
+if errorlevel 1 call loch.bat
 cls

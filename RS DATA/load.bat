@@ -1,6 +1,6 @@
 @echo off
-
-mode con COLS=82 LINES=34
+title RS V1.0
+mode con COLS=82 LINES=29
 
 :frm1
 cls
@@ -71,5 +71,5 @@ cls
 type versionscr.txt
 ping localhost -n 2 >nul
 call delanim.bat
-pause
+ping localhost -n 2 >nul
 call rs.bat

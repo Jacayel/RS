@@ -1,6 +1,6 @@
 @echo off
 :startup
-Title RS VERSION 0.9
+Title RS VERSION 1.0
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 mode con COLS=27 LINES=15
 cls
