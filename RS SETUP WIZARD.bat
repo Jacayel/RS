@@ -30,7 +30,7 @@ echo call loch.bat >> password.bat
 cls
 systeminfo | findstr /C:"OS Name" /C:"System Type" /C:"Total Physical Memory" /C:"System Manufacturer" /C:"System Model" > sysinfo.txt
 cls
-title RS 0.9
+title RS 1.0
 echo Setup has completed, would you like to start RS?
 echo (Y = Yes)
 echo (N = No)
